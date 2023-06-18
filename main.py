@@ -1,14 +1,24 @@
-from comands import *
+# from comands import *
+from objects import *
+from file_processing_functions import *
+from pathlib import Path
+
+NUMBERS_PATH = Path(__file__).parent.joinpath("telephone_numbers.csv")
+contacts = create_contacts_dict(NUMBERS_PATH)
 
 comands = {
-    "hello": hello,
-    "add": adding,
-    "change": change_number,
-    "phone": show_number,
-    "show all": show_all_contacts,
-    "good bye": close,
-    "close": close,
-    "exit": close,
+    "hello": contacts.hello,
+    "add phone": contacts.add_phone,
+    "add mail": contacts.add_mail,
+    "add": contacts.add_contact,
+    "change phone": contacts.change_number,
+    "change mail": contacts.change_mail,
+    "change": contacts.change_contact,
+    "contact": contacts.show_contact,
+    "show all": contacts.show_all_contacts,
+    "good bye": contacts.close,
+    "close": contacts.close,
+    "exit": contacts.close,
     "help": (lambda *args: print([comand for comand in comands] if not len(args) else "INVALID INPUT: too much charecters"))
 }
 
@@ -32,4 +42,4 @@ try:
         print("(bot):", end="")
         comands[comand](*user_args)
 finally:
-    save_contacts_to_file(NUMBERS_PATH,numbers_dict)
+    save_contacts_to_file(NUMBERS_PATH,contacts)
