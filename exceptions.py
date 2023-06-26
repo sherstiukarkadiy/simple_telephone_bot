@@ -6,3 +6,6 @@ class NoNameError(Exception):
 
 class NoMailError(Exception):
     pass
+
+class NoDateError(Exception):
+    pass

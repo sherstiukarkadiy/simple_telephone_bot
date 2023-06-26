@@ -1,5 +1,6 @@
 import re
 from exceptions import *
+from datetime import datetime
 
 def create_menu_rows(lst: list) -> list:
     """Create string rows for menu creating
@@ -55,6 +56,21 @@ def email_check(email: str) -> bool:
     else:
         return False
 
+def birthday_check(date: str):
+    spliters = [".",",","/","\\"]
+    for sign in spliters:
+        date = date.replace(sign," ")
+        
+    __match = re.match(r"\d{2} \d{2} \d{4}", date)
+    if not __match: return False
+    
+    cur_year = datetime.now().year
+    
+    day,month,year = date.split()
+    if int(day)>31 or int(month)>12 or int(year)<1900 or int(year)>cur_year:
+        return False
+    return day,month,year
+
 def sort_contacts(contacts: dict) -> dict:
     """Sorts dictionary by key
 
@@ -101,5 +117,7 @@ def try_to_class(value: str,__class: object) -> object|None:
     except NoMailError as me:
         print(me)
         return
+    except NoDateError as de:
+        print(de)
     
     return value
