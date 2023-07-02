@@ -16,6 +16,7 @@ comands = {
     "change mail": contacts.change_mail,
     "change": contacts.change_contact,
     "contact": contacts.show_contact,
+    "contacts with": contacts.show_contacts_with,
     "show all": contacts.show_all_contacts,
     "show parts": contacts.show_by_pages,
     "days to": contacts.days_to_birth,

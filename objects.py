@@ -427,7 +427,9 @@ class AdressBook(UserDict):
             if birth == contact.birthday:
                 print()
                 print(contact)
-           
+        else:
+            print("No such contact")
+            
     def show_by_number(self, *args):
         
         value = invalid_show_input(args)
@@ -442,7 +444,9 @@ class AdressBook(UserDict):
                 print()
                 print(contact)
                 return
-                
+        else:
+            print("No such contact")
+            
     def show_by_mail(self, *args):
         
         value = invalid_show_input(args)
@@ -451,12 +455,14 @@ class AdressBook(UserDict):
         
         mail  = try_to_class(value,Email)
         if not mail: return
-            
+        
         for contact in self.data.values():
             if mail in contact.emailes:
                 print()
                 print(contact)
                 return
+        else:
+            print("No such contact")
             
     def show_contact(self, *args) -> None:
         """printing all numbers of current contact
@@ -495,6 +501,25 @@ class AdressBook(UserDict):
             pass
         
         print("No matches founded")
+            
+    def show_contacts_with(self, *args):
+        
+        value = invalid_show_input(args)
+        if value is True:
+            return
+        
+        matches = 0
+        for contact in self.data.values():
+            search_contact = str(contact)
+            replace_list = ["Name:","Birthday:","Phones:","Emailes:"]
+            for elem in replace_list:
+                search_contact = search_contact.replace(elem, "").lower()
+            if value.lower() in search_contact:
+                print("\n" + str(contact) + "\n")
+                matches += 1
+        
+        if matches == 0:
+            print("No matches founded")
 
     def show_all_contacts(self, *args) -> None:
         """printing all contacts
